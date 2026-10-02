@@ -1,484 +1,85 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ورود به حساب</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Vazirmatn', 'Tahoma', 'Arial', 'sans-serif']
-          },
-          boxShadow: {
-            glow: '0 25px 80px rgba(99, 102, 241, 0.18)'
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
-    }
-
-    .background-grid {
-      background-image:
-        linear-gradient(rgba(99, 102, 241, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99, 102, 241, 0.045) 1px, transparent 1px);
-      background-size: 34px 34px;
-    }
-
-    .glass {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-    }
-
-    .input-focus:focus-within {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.10);
-    }
-
-    .input-focus.error {
-      border-color: #ef4444;
-      box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08);
-    }
-
-    .input-focus.success {
-      border-color: #10b981;
-    }
-
-    .password-toggle {
-      transition: all 0.2s ease;
-    }
-
-    .password-toggle:hover {
-      color: #6366f1;
-      background: #eef2ff;
-    }
-
-    .login-button {
-      background: linear-gradient(135deg, #6366f1 0%, #7c3aed 55%, #a855f7 100%);
-      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.28);
-      transition: all 0.25s ease;
-    }
-
-    .login-button:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 35px rgba(99, 102, 241, 0.36);
-    }
-
-    .login-button:active:not(:disabled) {
-      transform: translateY(0);
-    }
-
-    .login-button:disabled {
-      cursor: not-allowed;
-      opacity: 0.75;
-    }
-
-    .spinner {
-      width: 20px;
-      height: 20px;
-      border: 2.5px solid rgba(255, 255, 255, 0.35);
-      border-top-color: white;
-      border-radius: 999px;
-      animation: spin 0.7s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .float-one {
-      animation: floatOne 7s ease-in-out infinite;
-    }
-
-    .float-two {
-      animation: floatTwo 8s ease-in-out infinite;
-    }
-
-    @keyframes floatOne {
-      0%, 100% { transform: translate3d(0, 0, 0); }
-      50% { transform: translate3d(0, -18px, 0); }
-    }
-
-    @keyframes floatTwo {
-      0%, 100% { transform: translate3d(0, 0, 0); }
-      50% { transform: translate3d(12px, 14px, 0); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#160d2b">
+    <title>Sign in to Luma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../static/css/login.css">
 </head>
+<body class="min-h-screen overflow-x-hidden bg-[#160d2b] text-white antialiased">
+    <main class="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-3 sm:px-8 sm:py-5">
+        <div class="pointer-events-none absolute -left-32 top-[-7rem] h-80 w-80 rounded-full bg-fuchsia-500/30 blur-3xl sm:h-[28rem] sm:w-[28rem]"></div>
+        <div class="pointer-events-none absolute -right-40 top-1/3 h-96 w-96 rounded-full bg-violet-600/35 blur-3xl sm:h-[34rem] sm:w-[34rem]"></div>
+        <div class="pointer-events-none absolute bottom-[-10rem] left-1/3 h-80 w-80 rounded-full bg-pink-500/20 blur-3xl sm:h-[30rem] sm:w-[30rem]"></div>
 
-<body class="min-h-screen bg-slate-50 text-slate-900">
-
-  <!-- Background -->
-  <main class="relative min-h-screen overflow-hidden background-grid">
-
-    <!-- Decorative gradients -->
-    <div class="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-indigo-300/30 blur-3xl float-one"></div>
-    <div class="pointer-events-none absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-fuchsia-300/25 blur-3xl float-two"></div>
-    <div class="pointer-events-none absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-sky-200/20 blur-3xl"></div>
-
-    <!-- Content -->
-    <section class="relative z-10 flex min-h-screen items-center justify-center px-4 py-10 sm:px-6">
-
-      <div class="w-full max-w-md">
-
-        <!-- Brand -->
-        <div class="mb-7 text-center">
-          <div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-500 shadow-xl shadow-indigo-500/25">
-            <svg
-              class="h-8 w-8 text-white"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M12 2l3.2 6.8L22 12l-6.8 3.2L12 22l-3.2-6.8L2 12l6.8-3.2L12 2z"/>
-              <path d="M19 3v4"/>
-              <path d="M21 5h-4"/>
-            </svg>
-          </div>
-
-          <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-            خوش آمدید
-          </h1>
-
-          <p class="mt-2 text-sm leading-6 text-slate-500">
-            برای ادامه وارد حساب کاربری خود شوید
-          </p>
-        </div>
-
-        <!-- Card -->
-        <div class="glass rounded-3xl border border-white/80 p-6 shadow-glow sm:p-8">
-
-          <form id="loginForm" novalidate>
-
-            <!-- Email -->
-            <div class="mb-5">
-              <label
-                for="email"
-                class="mb-2 block text-sm font-semibold text-slate-700"
-              >
-                ایمیل
-              </label>
-
-              <div
-                id="emailWrapper"
-                class="input-focus flex h-14 items-center rounded-2xl border border-slate-200 bg-white/80 px-4 transition-all duration-200"
-              >
-                <svg
-                  class="ml-3 h-5 w-5 shrink-0 text-slate-400"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  aria-hidden="true"
-                >
-                  <rect x="3" y="5" width="18" height="14" rx="2"/>
-                  <path d="M3 7l9 6 9-6"/>
-                </svg>
-
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  placeholder="example@email.com"
-                  class="h-full w-full bg-transparent text-left text-sm text-slate-900 outline-none placeholder:text-slate-400"
-                  dir="ltr"
-                  aria-describedby="emailError"
-                />
-              </div>
-
-              <p
-                id="emailError"
-                class="mt-2 hidden text-xs font-medium text-red-500"
-                role="alert"
-              ></p>
+        <section class="login-card relative z-10 w-full max-w-md rounded-[2rem] border border-white/15 px-5 py-4 shadow-2xl shadow-fuchsia-950/40 sm:px-10 sm:py-6" aria-labelledby="login-heading">
+            <div class="mb-6 text-center">
+                <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-400 via-purple-500 to-indigo-500 shadow-lg shadow-fuchsia-500/30" aria-hidden="true">
+                    <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 3.5 14.5 9.5 20.5 12l-6 2.5L12 20.5l-2.5-6L3.5 12l6-2.5L12 3.5Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <p class="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-fuchsia-200/75">Welcome back</p>
+                <h1 id="login-heading" class="text-2xl font-semibold tracking-tight text-white sm:text-[2rem]">Sign in to Luma</h1>
             </div>
 
-            <!-- Password -->
-            <div class="mb-3">
-              <label
-                for="password"
-                class="mb-2 block text-sm font-semibold text-slate-700"
-              >
-                رمز عبور
-              </label>
+            <form id="login-form" class="space-y-3" method="post" novalidate>
+                <div>
+                    <label class="mb-1.5 block text-[0.8rem] font-medium text-white/85" for="email">Email address</label>
+                    <input class="w-full rounded-xl border border-white/15 bg-black/20 px-4 py-2 text-sm text-white outline-none transition duration-150 placeholder:text-sm placeholder:text-white/40 focus:border-fuchsia-300/80 focus:bg-black/30 focus:ring-4 focus:ring-fuchsia-500/15 aria-[invalid=true]:border-rose-400/90 aria-[invalid=true]:ring-4 aria-[invalid=true]:ring-rose-500/10" id="email" name="email" type="email" placeholder="Enter your email" autocomplete="email" aria-describedby="email-error" aria-invalid="false">
+                    <p class="min-h-0 pt-1 text-xs text-rose-300" id="email-error" role="alert"></p>
+                </div>
 
-              <div
-                id="passwordWrapper"
-                class="input-focus flex h-14 items-center rounded-2xl border border-slate-200 bg-white/80 px-4 transition-all duration-200"
-              >
-                <svg
-                  class="ml-3 h-5 w-5 shrink-0 text-slate-400"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  aria-hidden="true"
-                >
-                  <rect x="4" y="10" width="16" height="11" rx="2"/>
-                  <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
-                </svg>
+                <div>
+                    <label class="mb-1.5 block text-[0.8rem] font-medium text-white/85" for="password">Password</label>
+                    <div class="relative">
+                        <input class="w-full rounded-xl border border-white/15 bg-black/20 px-4 py-2 pr-10 text-sm text-white outline-none transition duration-150 placeholder:text-sm placeholder:text-white/40 focus:border-fuchsia-300/80 focus:bg-black/30 focus:ring-4 focus:ring-fuchsia-500/15 aria-[invalid=true]:border-rose-400/90 aria-[invalid=true]:ring-4 aria-[invalid=true]:ring-rose-500/10" id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" aria-describedby="password-error" aria-invalid="false">
+                        <button id="toggle-password" class="absolute inset-y-0 right-3 z-10 inline-flex items-center text-white/45 transition hover:text-white/80 focus:outline-none focus:ring-0 focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-fuchsia-300" type="button" aria-label="Show password" aria-controls="password" aria-pressed="false">
+                            <svg id="show-password-icon" class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                                <circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.7"/>
+                            </svg>
+                            <svg id="hide-password-icon" class="h-4 w-4" style="display: none;" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="m3 3 18 18M10.6 6.2A10.8 10.8 0 0 1 12 6c6 0 9.5 6 9.5 6a17.7 17.7 0 0 1-3.1 3.8M6.2 6.8C3.9 8.4 2.5 12 2.5 12s3.5 6 9.5 6c1 0 1.9-.2 2.7-.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="min-h-0 pt-1 text-xs text-rose-300" id="password-error" role="alert"></p>
+                </div>
 
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autocomplete="current-password"
-                  placeholder="رمز عبور خود را وارد کنید"
-                  class="h-full w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
-                  dir="rtl"
-                  aria-describedby="passwordError"
-                />
-
-                <!-- Eye Button -->
-                <button
-                  id="togglePassword"
-                  type="button"
-                  class="password-toggle mr-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-slate-400"
-                  aria-label="نمایش رمز عبور"
-                  title="نمایش رمز عبور"
-                >
-                  <!-- Eye -->
-                  <svg
-                    id="eyeIcon"
-                    class="h-5 w-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/>
-                    <circle cx="12" cy="12" r="2.5"/>
-                  </svg>
+                <button id="login-button" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-fuchsia-950/30 transition duration-150 hover:-translate-y-0.5 hover:scale-[1.01] hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-fuchsia-300 focus:ring-offset-2 focus:ring-offset-[#211238] active:scale-[0.98] disabled:cursor-wait disabled:opacity-70" type="submit">
+                    <span>Log in</span>
                 </button>
-              </div>
+            </form>
 
-              <p
-                id="passwordError"
-                class="mt-2 hidden text-xs font-medium text-red-500"
-                role="alert"
-              ></p>
+            <div class="my-4 flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white/40">
+                <span class="h-px flex-1 bg-white/10"></span>
+                <span>Or Sign Up</span>
+                <span class="h-px flex-1 bg-white/10"></span>
             </div>
 
-            <!-- Forgot Password -->
-            <div class="mb-7 flex justify-start">
-              <a
-                href="#"
-                class="text-sm font-semibold text-indigo-600 transition hover:text-violet-600 hover:underline"
-                onclick="event.preventDefault();"
-              >
-                فراموشی رمز عبور؟
-              </a>
+            <div class="space-y-2.5">
+                <a class="flex w-full items-center justify-center gap-2.5 rounded-xl border border-white/90 bg-white px-5 py-2 text-sm font-semibold text-[#241632] shadow-md shadow-black/15 outline-none transition duration-150 hover:scale-[1.02] hover:bg-pink-50 focus-visible:ring-4 focus-visible:ring-fuchsia-300/55 active:scale-[0.98]" href="{% url 'accounts:social-login' 'google' %}">
+                    <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="#4285F4" d="M21.35 12.27c0-.72-.06-1.42-.18-2.09H12v3.96h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.7 2.91-4.2 2.91-7.26Z"/>
+                        <path fill="#34A853" d="M12 21.02c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.7-1.72-5.47-4.03H3.29v2.53A9.74 9.74 0 0 0 12 21.02Z"/>
+                        <path fill="#FBBC05" d="M6.53 13.1a5.86 5.86 0 0 1 0-3.74V6.83H3.29a9.75 9.75 0 0 0 0 8.8l3.24-2.53Z"/>
+                        <path fill="#EA4335" d="M12 5.33c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 2.43 14.63 1.5 12 1.5a9.74 9.74 0 0 0-8.71 5.33l3.24 2.53C7.3 7.05 9.46 5.33 12 5.33Z"/>
+                    </svg>
+                    <span>Continue with Google</span>
+                </a>
+
+                <a class="flex w-full items-center justify-center gap-2.5 rounded-xl bg-[#229ed9] px-5 py-2 text-sm font-semibold text-white outline-none transition duration-150 hover:scale-[1.02] hover:bg-[#39aae0] focus-visible:ring-4 focus-visible:ring-fuchsia-300/55 active:scale-[0.98]" href="{% url 'accounts:social-login' 'telegram' %}">
+                    <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="m21.2 4.7-3.07 14.47c-.23 1.02-.84 1.28-1.7.8l-4.68-3.45-2.26 2.18c-.25.25-.46.46-.94.46l.34-4.78 8.7-7.86c.38-.34-.08-.53-.59-.19L6.25 12.9l-4.6-1.44c-1-.31-1.02-1 .2-1.48L19.83 3.7c.84-.31 1.58.19 1.37 1Z" fill="currentColor"/>
+                    </svg>
+                    <span>Continue with Telegram</span>
+                </a>
             </div>
-
-            <!-- Login -->
-            <button
-              id="loginButton"
-              type="submit"
-              class="login-button flex h-14 w-full items-center justify-center gap-3 rounded-2xl px-5 text-sm font-bold text-white"
-            >
-              <span id="buttonText">ورود به حساب</span>
-
-              <span id="spinner" class="spinner hidden" aria-hidden="true"></span>
-
-              <svg
-                id="buttonArrow"
-                class="h-5 w-5 rotate-180"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M5 12h14"/>
-                <path d="M13 6l6 6-6 6"/>
-              </svg>
-            </button>
-
-          </form>
-        </div>
-
-        <p class="mt-6 text-center text-xs text-slate-400">
-          ورود امن و سریع به پنل کاربری
-        </p>
-
-      </div>
-    </section>
-  </main>
-
-  <script>
-    const form = document.getElementById('loginForm');
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-
-    const emailWrapper = document.getElementById('emailWrapper');
-    const passwordWrapper = document.getElementById('passwordWrapper');
-
-    const emailError = document.getElementById('emailError');
-    const passwordError = document.getElementById('passwordError');
-
-    const togglePassword = document.getElementById('togglePassword');
-    const eyeIcon = document.getElementById('eyeIcon');
-
-    const loginButton = document.getElementById('loginButton');
-    const buttonText = document.getElementById('buttonText');
-    const spinner = document.getElementById('spinner');
-    const buttonArrow = document.getElementById('buttonArrow');
-
-    function setError(wrapper, errorElement, message) {
-      wrapper.classList.add('error');
-      wrapper.classList.remove('success');
-
-      errorElement.textContent = message;
-      errorElement.classList.remove('hidden');
-    }
-
-    function clearError(wrapper, errorElement) {
-      wrapper.classList.remove('error');
-      errorElement.textContent = '';
-      errorElement.classList.add('hidden');
-    }
-
-    function validateEmail() {
-      const value = email.value.trim();
-
-      if (!value) {
-        setError(emailWrapper, emailError, 'لطفاً ایمیل خود را وارد کنید.');
-        return false;
-      }
-
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-      if (!emailPattern.test(value)) {
-        setError(emailWrapper, emailError, 'فرمت ایمیل وارد شده صحیح نیست.');
-        return false;
-      }
-
-      clearError(emailWrapper, emailError);
-      emailWrapper.classList.add('success');
-      return true;
-    }
-
-    function validatePassword() {
-      const value = password.value;
-
-      if (!value.trim()) {
-        setError(passwordWrapper, passwordError, 'لطفاً رمز عبور خود را وارد کنید.');
-        return false;
-      }
-
-      clearError(passwordWrapper, passwordError);
-      passwordWrapper.classList.add('success');
-      return true;
-    }
-
-    // Password visibility
-    togglePassword.addEventListener('click', () => {
-      const isPassword = password.type === 'password';
-
-      password.type = isPassword ? 'text' : 'password';
-
-      togglePassword.setAttribute(
-        'aria-label',
-        isPassword ? 'مخفی کردن رمز عبور' : 'نمایش رمز عبور'
-      );
-
-      togglePassword.setAttribute(
-        'title',
-        isPassword ? 'مخفی کردن رمز عبور' : 'نمایش رمز عبور'
-      );
-
-      if (isPassword) {
-        eyeIcon.innerHTML = `
-          <path d="M3 3l18 18"/>
-          <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/>
-          <path d="M9.9 4.2A10.8 10.8 0 0 1 12 4c6.5 0 10 6 10 6a17.5 17.5 0 0 1-3.1 3.9"/>
-          <path d="M6.6 6.6C3.6 8.3 2 10 2 10s3.5 6 10 6c1 0 1.9-.1 2.8-.4"/>
-        `;
-      } else {
-        eyeIcon.innerHTML = `
-          <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/>
-          <circle cx="12" cy="12" r="2.5"/>
-        `;
-      }
-    });
-
-    // Live validation
-    email.addEventListener('blur', validateEmail);
-    password.addEventListener('blur', validatePassword);
-
-    email.addEventListener('input', () => {
-      if (!emailWrapper.classList.contains('error')) return;
-      validateEmail();
-    });
-
-    password.addEventListener('input', () => {
-      if (!passwordWrapper.classList.contains('error')) return;
-      validatePassword();
-    });
-
-    // Submit
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      const validEmail = validateEmail();
-      const validPassword = validatePassword();
-
-      if (!validEmail) {
-        email.focus();
-        return;
-      }
-
-      if (!validPassword) {
-        password.focus();
-        return;
-      }
-
-      // Loading state
-      loginButton.disabled = true;
-      buttonText.textContent = 'در حال ورود...';
-      spinner.classList.remove('hidden');
-      buttonArrow.classList.add('hidden');
-
-      // Demo only — no backend
-      setTimeout(() => {
-        loginButton.disabled = false;
-        buttonText.textContent = 'ورود به حساب';
-        spinner.classList.add('hidden');
-        buttonArrow.classList.remove('hidden');
-
-        // چون Backend وجود ندارد، فقط فرم را معتبر می‌کنیم.
-        // در پروژه واقعی این قسمت به API متصل می‌شود.
-      }, 1600);
-    });
-  </script>
-
+        </section>
+    </main>
+    <script src="../../static/js/login.js?v=5" defer></script>
 </body>
 </html>
